@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LS SERVICES - Vente de services digitaux</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4f46e5',
+                        secondary: '#10b981',
+                        dark: '#1e293b',
+                        light: '#f8fafc'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #10b981 100%);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-card {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #4f46e5;
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .active-nav::after {
+            width: 100%;
+        }
+        
+        /* Animation for form elements */
+        .form-element {
+            animation: fadeIn 0.6s ease-in-out forwards;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .pulse:hover {
+            animation: pulse 1.5s infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <img src="https://cdn.discordapp.com/attachments/1404284668869869618/1411140967901167761/Nouveau_projet_1.png" alt="LS SERVICES Logo" class="h-10 w-auto">
+                <span class="text-xl font-bold text-dark">LS SERVICES</span>
+            </div>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link text-dark font-medium hover:text-primary transition duration-300 active-nav">Accueil</a>
+                <a href="#about" class="nav-link text-dark font-medium hover:text-primary transition duration-300">À propos</a>
+                <a href="#services" class="nav-link text-dark font-medium hover:text-primary transition duration-300">Boutique</a>
+                <a href="#contact" class="nav-link text-dark font-medium hover:text-primary transition duration-300">Contact</a>
+            </div>
+            
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-dark focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-lg">
+            <a href="#home" class="block py-2 text-dark font-medium hover:text-primary transition duration-300">Accueil</a>
+            <a href="#about" class="block py-2 text-dark font-medium hover:text-primary transition duration-300">À propos</a>
+            <a href="#services" class="block py-2 text-dark font-medium hover:text-primary transition duration-300">Boutique</a>
+            <a href="#contact" class="block py-2 text-dark font-medium hover:text-primary transition duration-300">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient text-white py-20">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0 animate-fade-in">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Boostez votre présence digitale</h1>
+                <p class="text-xl mb-8">Des services de qualité pour développer vos réseaux sociaux et améliorer votre expérience digitale.</p>
+                <a href="#services" class="bg-white text-primary font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300 inline-block pulse">Découvrir nos services</a>
+            </div>
+            <div class="md:w-1/2 flex justify-center animate-slide-up">
+                <img src="https://cdn.discordapp.com/attachments/1404284668869869618/1411140967901167761/Nouveau_projet_1.png" alt="Services Digitaux" class="w-full max-w-md rounded-lg shadow-2xl">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-dark">À propos de LS SERVICES</h2>
+            
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2 bg-light p-8 rounded-xl shadow-md">
+                    <h3 class="text-2xl font-semibold mb-4 text-primary">Notre mission</h3>
+                    <p class="text-dark mb-6">Nous fournissons des services digitaux de haute qualité pour aider les créateurs de contenu, les entreprises et les particuliers à développer leur présence en ligne.</p>
+                    <p class="text-dark">Notre équipe est composée de professionnels expérimentés dans le marketing digital et le développement web.</p>
+                </div>
+                
+                <div class="md:w-1/2 bg-light p-8 rounded-xl shadow-md">
+                    <h3 class="text-2xl font-semibold mb-4 text-primary">Pourquoi nous choisir ?</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-secondary mt-1 mr-2"></i>
+                            <span class="text-dark">Services rapides et fiables</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-secondary mt-1 mr-2"></i>
+                            <span class="text-dark">Prix compétitifs</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-secondary mt-1 mr-2"></i>
+                            <span class="text-dark">Support client 24/7</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-secondary mt-1 mr-2"></i>
+                            <span class="text-dark">Méthodes légales et sécurisées</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-dark">Nos Services</h2>
+            
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold mb-6 text-primary border-b pb-2">TikTok Social Services</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Service cards will be generated by JavaScript -->
+                </div>
+            </div>
+            
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold mb-6 text-primary border-b pb-2">Décoration Discord</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Service cards will be generated by JavaScript -->
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <p class="text-dark mb-6">D'autres services seront bientôt disponibles !</p>
+                <button id="checkout-btn" class="bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-indigo-700 transition duration-300 inline-flex items-center">
+                    <i class="fas fa-shopping-cart mr-2"></i> Voir mon panier
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-dark">Contact</h2>
+            
+            <div class="max-w-md mx-auto bg-light p-8 rounded-xl shadow-md">
+                <h3 class="text-2xl font-semibold mb-6 text-primary text-center">Informations de contact</h3>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <i class="fas fa-envelope text-secondary mt-1 mr-4 text-xl"></i>
+                        <div>
+                            <h4 class="font-medium text-dark">Email</h4>
+                            <p class="text-gray-600">contact@lsservices.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <i class="fas fa-phone-alt text-secondary mt-1 mr-4 text-xl"></i>
+                        <div>
+                            <h4 class="font-medium text-dark">Téléphone</h4>
+                            <p class="text-gray-600">+33 6 12 34 56 78</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[80vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-dark">Votre Panier</h3>
+                    <button id="close-cart" class="text-gray-500 hover:text-dark">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+                
+                <div id="cart-items" class="mb-6">
+                    <!-- Cart items will be added here by JavaScript -->
+                </div>
+                
+                <div class="border-t pt-4">
+                    <div class="flex justify-between mb-4">
+                        <span class="font-medium text-dark">Total:</span>
+                        <span id="cart-total" class="font-bold text-primary">0.00€</span>
+                    </div>
+                    
+                    <button id="checkout-now" class="w-full bg-primary text-white font-bold py-3 px-6 rounded-md hover:bg-indigo-700 transition duration-300">
+                        <i class="fas fa-credit-card mr-2"></i> Payer maintenant
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-dark">Paiement</h3>
+                    <button id="close-payment" class="text-gray-500 hover:text-dark">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+                
+                <form id="payment-form" class="space-y-4">
+                    <div>
+                        <label for="card-name" class="block text-dark font-medium mb-2">Nom sur la carte</label>
+                        <input type="text" id="card-name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                    </div>
+                    
+                    <div>
+                        <label for="card-number" class="block text-dark font-medium mb-2">Numéro de carte</label>
+                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="card-expiry" class="block text-dark font-medium mb-2">Expiration</label>
+                            <input type="text" id="card-expiry" placeholder="MM/AA" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                        </div>
+                        
+                        <div>
+                            <label for="card-cvc" class="block text-dark font-medium mb-2">CVC</label>
+                            <input type="text" id="card-cvc" placeholder="123" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-primary text-white font-bold py-3 px-6 rounded-md hover:bg-indigo-700 transition duration-300 mt-4">
+                        <i class="fas fa-lock mr-2"></i> Payer <span id="payment-amount">0.00€</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md text-center p-8">
+            <div class="text-green-500 text-6xl mb-4">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-dark mb-4">Paiement réussi !</h3>
+            <p class="text-gray-600 mb-6">Merci pour votre achat. Nous avons envoyé une confirmation à votre adresse email.</p>
+            <button id="close-success" class="bg-primary text-white font-bold py-2 px-6 rounded-md hover:bg-indigo-700 transition duration-300">
+                Fermer
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-8 mt-auto">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <img src="https://cdn.discordapp.com/attachments/1404284668869869618/1411140967901167761/Nouveau_projet_1.png" alt="LS SERVICES Logo" class="h-8 w-auto">
+                        <span class="text-xl font-bold">LS SERVICES</span>
+                    </div>
+                    <p class="mt-2 text-gray-400">Votre partenaire pour les services digitaux.</p>
+                </div>
+                
+                <div class="flex flex-col items-center md:items-end">
+                    <p class="text-gray-400 text-sm">© 2025 LS SERVICES. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Active nav link based on scroll position
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 300)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active-nav');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active-nav');
+                }
+            });
+        });
+
+        // Services data
+        const tiktokServices = [
+            { name: "1.000 Followers", price: 4.00 },
+            { name: "2.000 Followers", price: 5.90 },
+            { name: "5.000 Followers", price: 15.50 },
+            { name: "10.000 Followers", price: 29.00 },
+            { name: "1.000 Likes", price: 2.75 },
+            { name: "2.500 Likes", price: 3.20 },
+            { name: "7.500 Likes", price: 4.00 },
+            { name: "15.000 Likes", price: 5.50 },
+            { name: "50.000 Likes", price: 12.60 },
+            { name: "100.000 Likes", price: 16.90 },
+            { name: "100.000 Vues", price: 3.50 },
+            { name: "500.000 Vues", price: 4.80 }
+        ];
+
+        const discordServices = [
+            { name: "New tech deco no warr 4.99€", price: 1.25 },
+            { name: "New tech deco no warr 5.99€", price: 2.00 },
+            { name: "New tech deco no warr 7.99€", price: 3.50 },
+            { name: "New tech deco no warr 9.99€", price: 3.90 },
+            { name: "New tech deco no warr 11.99€", price: 4.00 },
+            { name: "Legal Paid Full Warranty 47h link", price: 0.00 }
+        ];
+
+        // Generate service cards
+        const tiktokContainer = document.querySelector('#services > div:nth-child(2) > div');
+        const discordContainer = document.querySelector('#services > div:nth-child(4) > div');
+
+        tiktokServices.forEach(service => {
+            const card = document.createElement('div');
+            card.className = 'service-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300';
+            card.innerHTML = `
+                <h4 class="text-lg font-semibold mb-2 text-dark">${service.name}</h4>
+                <p class="text-2xl font-bold text-primary mb-4">${service.price.toFixed(2)}€</p>
+                <button class="add-to-cart bg-primary text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300 w-full" 
+                        data-name="${service.name}" 
+                        data-price="${service.price}">
+                    <i class="fas fa-cart-plus mr-2"></i> Ajouter au panier
+                </button>
+            `;
+            tiktokContainer.appendChild(card);
+        });
+
+        discordServices.forEach(service => {
+            const card = document.createElement('div');
+            card.className = 'service-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300';
+            card.innerHTML = `
+                <h4 class="text-lg font-semibold mb-2 text-dark">${service.name}</h4>
+                ${service.price > 0 ? `<p class="text-2xl font-bold text-primary mb-4">${service.price.toFixed(2)}€</p>` : '<p class="text-gray-500 mb-4">Gratuit</p>'}
+                <button class="add-to-cart bg-primary text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300 w-full" 
+                        data-name="${service.name}" 
+                        data-price="${service.price}">
+                    <i class="fas fa-cart-plus mr-2"></i> Ajouter au panier
+                </button>
+            `;
+            discordContainer.appendChild(card);
+        });
+
+        // Shopping cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function updateCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotalElement = document.getElementById('cart-total');
+            
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-gray-500 text-center py-4">Votre panier est vide</p>';
+                cartTotalElement.textContent = '0.00€';
+                return;
+            }
+            
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                total += item.price;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'flex justify-between items-center py-3 border-b';
+                cartItem.innerHTML = `
+                    <div>
+                        <h4 class="font-medium text-dark">${item.name}</h4>
+                        <p class="text-sm text-gray-500">${item.price.toFixed(2)}€</p>
+                    </div>
+                    <button class="remove-from-cart text-red-500 hover:text-red-700" data-index="${index}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+            
+            cartTotalElement.textContent = total.toFixed(2) + '€';
+            document.getElementById('payment-amount').textContent = total.toFixed(2) + '€';
+        }
+
+        // Add to cart event listeners
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('add-to-cart') || e.target.closest('.add-to-cart')) {
+                const button = e.target.classList.contains('add-to-cart') ? e.target : e.target.closest('.add-to-cart');
+                const name = button.getAttribute('data-name');
+                const price = parseFloat(button.getAttribute('data-price'));
+                
+                cart.push({ name, price });
+                updateCart();
+                
+                // Show a small notification
+                const notification = document.createElement('div');
+                notification.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg animate-fade-in';
+                notification.innerHTML = `<i class="fas fa-check-circle mr-2"></i> Ajouté au panier`;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+                    setTimeout(() => notification.remove(), 300);
+                }, 2000);
+            }
+            
+            // Remove from cart
+            if (e.target.classList.contains('remove-from-cart') || e.target.closest('.remove-from-cart')) {
+                const button = e.target.classList.contains('remove-from-cart') ? e.target : e.target.closest('.remove-from-cart');
+                const index = parseInt(button.getAttribute('data-index'));
+                
+                cart.splice(index, 1);
+                updateCart();
+            }
+        });
+
+        // Cart modal functionality
+        document.getElementById('checkout-btn').addEventListener('click', function() {
+            document.getElementById('cart-modal').classList.remove('hidden');
+            renderCart();
+        });
+
+        document.getElementById('close-cart').addEventListener('click', function() {
+            document.getElementById('cart-modal').classList.add('hidden');
+        });
+
+        // Payment modal functionality
+        document.getElementById('checkout-now').addEventListener('click', function() {
+            if (cart.length === 0) {
+                alert('Votre panier est vide. Ajoutez des articles avant de payer.');
+                return;
+            }
+            
+            document.getElementById('cart-modal').classList.add('hidden');
+            document.getElementById('payment-modal').classList.remove('hidden');
+        });
+
+        document.getElementById('close-payment').addEventListener('click', function() {
+            document.getElementById('payment-modal').classList.add('hidden');
+        });
+
+        // Payment form submission
+        document.getElementById('payment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Here you would typically send the payment to a server
+            // For this demo, we'll just simulate a successful payment
+            
+            document.getElementById('payment-modal').classList.add('hidden');
+            document.getElementById('success-modal').classList.remove('hidden');
+            
+            // Clear the cart after successful payment
+            cart = [];
+            updateCart();
+        });
+
+        // Close success modal
+        document.getElementById('close-success').addEventListener('click', function() {
+            document.getElementById('success-modal').classList.add('hidden');
+        });
+
+        // Initialize the cart on page load
+        renderCart();
+    </script>
+</body>
+
+                  </html>
