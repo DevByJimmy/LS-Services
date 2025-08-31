@@ -171,21 +171,21 @@
                 <h2 class="text-3xl font-bold mb-6 text-gray-800">Contactez-nous</h2>
                 <div class="flex flex-col md:flex-row">
                     <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
-                        <div id="contact-form" class="space-y-4">
+                        <form id="contact-form" class="space-y-4" action="mailto:ls_service2k25@outlook.fr" method="post" enctype="text/plain">
                             <div>
                                 <label for="name" class="block text-gray-700 mb-2">Nom</label>
-                                <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
                             </div>
                             <div>
                                 <label for="email" class="block text-gray-700 mb-2">Email</label>
-                                <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
                             </div>
                             <div>
                                 <label for="message" class="block text-gray-700 mb-2">Message</label>
-                                <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+                                <textarea id="message" name="message" rows="5" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
                             </div>
-                            <button type="button" onclick="sendEmail()" class="gradient-bg text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition">Envoyer</button>
-                        </div>
+                            <button type="submit" class="gradient-bg text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition">Envoyer</button>
+                        </form>
                     </div>
                     <div class="md:w-1/2">
                         <div class="bg-purple-50 rounded-lg p-6 h-full">
@@ -307,7 +307,7 @@
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="border border-gray-200 rounded-lg p-4">
-                                <h4 class="font-bold text-lg mb-3 text-gray-700">New tech deco no warr</h4>
+                                <h4 class="font-bold text-lg mb-3 text-gray-700">Discord Décorations</h4>
                                 <ul class="space-y-2">
                                     <li class="flex justify-between items-center">
                                         <span>4.99€ → 1.25€</span>
@@ -333,11 +333,11 @@
                             </div>
                             
                             <div class="border border-gray-200 rounded-lg p-4">
-                                <h4 class="font-bold text-lg mb-3 text-gray-700">Legal Paid Full Warranty 47h link</h4>
+                                <h4 class="font-bold text-lg mb-3 text-gray-700">Service Premium avec Garantie</h4>
                                 <p class="text-gray-600 mb-3">Service premium avec garantie complète</p>
                                 <div class="flex justify-between items-center">
                                     <span>Service complet</span>
-                                    <button onclick="addToCart('Discord - Legal Paid Full Warranty', 4.00)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">4.00€</button>
+                                    <button onclick="addToCart('Discord - Service Premium avec Garantie', 4.00)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">4.00€</button>
                                 </div>
                             </div>
                         </div>
@@ -401,8 +401,11 @@
                             </div>
                             
                             <div class="border border-gray-200 rounded-lg p-4">
-                                <h4 class="font-bold text-lg mb-3 text-gray-700">Accès Fresh</h4>
-                                <p class="text-gray-600 mb-3">Bientôt disponible...</p>
+                                <h4 class="font-bold text-lg mb-3 text-gray-700">Compte Fresh</h4>
+                                <div class="flex justify-between items-center">
+                                    <span>Compte Fresh</span>
+                                    <button onclick="addToCart('Compte Fresh', 3.50)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">3.50€</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -521,7 +524,6 @@
         
         // Initialisation
         document.addEventListener('DOMContentLoaded', function() {
-            loadCartFromStorage();
             updateCart();
         });
         
@@ -529,33 +531,6 @@
         hamburgerMenu.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
-        
-        // Email contact function
-        function sendEmail() {
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            if (!name || !email || !message) {
-                showNotification('Veuillez remplir tous les champs', 'error');
-                return;
-            }
-            
-            // Construire le lien mailto
-            const subject = encodeURIComponent('Contact depuis le site LS SERVICES');
-            const body = encodeURIComponent(`Nom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-            const mailtoLink = `mailto:ls_service2k25@outlook.fr?subject=${subject}&body=${body}`;
-            
-            // Ouvrir le client email
-            window.location.href = mailtoLink;
-            
-            showNotification(`Merci ${name}! Votre client email va s'ouvrir.`, 'success');
-            
-            // Reset form
-            document.getElementById('name').value = '';
-            document.getElementById('email').value = '';
-            document.getElementById('message').value = '';
-        }
         
         // Notification system
         function showNotification(message, type = 'success') {
@@ -591,8 +566,6 @@
             }
             
             updateCart();
-            saveCartToStorage();
-            
             showNotification(`${name} ajouté au panier!`, 'success');
         }
         
@@ -666,7 +639,6 @@
             }
             
             updateCart();
-            saveCartToStorage();
         }
         
         // Remove item from cart
@@ -674,7 +646,6 @@
             const item = cart[index];
             cart.splice(index, 1);
             updateCart();
-            saveCartToStorage();
             showNotification(`${item.name} retiré du panier`, 'error');
         }
         
@@ -685,32 +656,7 @@
             if (confirm('Êtes-vous sûr de vouloir vider le panier ?')) {
                 cart = [];
                 updateCart();
-                saveCartToStorage();
                 showNotification('Panier vidé', 'error');
-            }
-        }
-        
-        // Save cart to localStorage
-        function saveCartToStorage() {
-            try {
-                // Note: In artifacts, we can't use localStorage, so we'll skip this
-                // localStorage.setItem('ls_services_cart', JSON.stringify(cart));
-            } catch (error) {
-                console.log('Storage not available');
-            }
-        }
-        
-        // Load cart from localStorage
-        function loadCartFromStorage() {
-            try {
-                // Note: In artifacts, we can't use localStorage, so we'll skip this
-                // const savedCart = localStorage.getItem('ls_services_cart');
-                // if (savedCart) {
-                //     cart = JSON.parse(savedCart);
-                // }
-            } catch (error) {
-                console.log('Storage not available');
-                cart = [];
             }
         }
         
@@ -755,12 +701,15 @@
                 // Generate order details for tracking
                 const orderDetails = cart.map(item => `${item.name} (x${item.quantity})`).join(', ');
                 
+                // Create order info string
+                const orderInfo = `Commande LS SERVICES:\n\n${orderDetails}\n\nTotal: ${total.toFixed(2)}€\n\nMerci de nous envoyer vos détails après paiement à: ls_service2k25@outlook.fr`;
+                
                 // Open PayPal in new tab
                 window.open(paypalURL, '_blank');
                 
-                // Show success message
+                // Show success message with email info
                 closeOrderModal();
-                showNotification('Redirection vers PayPal effectuée. Après paiement, vous recevrez les détails par email.', 'success');
+                showNotification('Redirection vers PayPal effectuée. Après paiement, envoyez-nous vos détails par email pour livraison.', 'success');
                 
                 // Optionally clear cart after successful redirect
                 setTimeout(() => {
