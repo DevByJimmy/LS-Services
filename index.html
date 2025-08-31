@@ -832,7 +832,7 @@
                 document.getElementById('contact-form').reset();
             } else {
                 // Fallback: copy email to clipboard and show notification
-                const emailText = `À: ls_service2k25@outlook.fr\nObjet: Contact depuis le site LS SERVICES\n\nNom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+                const emailText = `À: ls_services2k25@outlook.fr\nObjet: Contact depuis le site LS SERVICES\n\nNom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
                 
                 navigator.clipboard.writeText(emailText).then(() => {
                     showNotification('Les informations ont été copiées dans le presse-papier. Collez-les dans votre client email.', 'success');
