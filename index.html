@@ -171,7 +171,7 @@
                 <h2 class="text-3xl font-bold mb-6 text-gray-800">Contactez-nous</h2>
                 <div class="flex flex-col md:flex-row">
                     <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
-                        <form id="contact-form" class="space-y-4" action="mailto:ls_service2k25@outlook.fr" method="post" enctype="text/plain">
+                        <form id="contact-form" class="space-y-4" onsubmit="sendEmail(event)">
                             <div>
                                 <label for="name" class="block text-gray-700 mb-2">Nom</label>
                                 <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
@@ -184,8 +184,18 @@
                                 <label for="message" class="block text-gray-700 mb-2">Message</label>
                                 <textarea id="message" name="message" rows="5" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
                             </div>
-                            <button type="submit" class="gradient-bg text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition">Envoyer</button>
+                            <button type="submit" class="gradient-bg text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition">
+                                <i class="fas fa-paper-plane mr-2"></i>Envoyer
+                            </button>
                         </form>
+                        
+                        <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                            <p class="text-sm text-blue-700">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                Vous pouvez aussi nous contacter directement par email : 
+                                <a href="mailto:ls_service2k25@outlook.fr" class="font-medium underline">ls_service2k25@outlook.fr</a>
+                            </p>
+                        </div>
                     </div>
                     <div class="md:w-1/2">
                         <div class="bg-purple-50 rounded-lg p-6 h-full">
@@ -791,6 +801,46 @@
         
         // Initialize page
         updateCart();
+        
+        // Email sending function
+        function sendEmail(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Create email content
+            const subject = encodeURIComponent('Contact depuis le site LS SERVICES');
+            const body = encodeURIComponent(
+                `Nom: ${name}\n` +
+                `Email: ${email}\n\n` +
+                `Message:\n${message}\n\n` +
+                `Envoyé depuis le site LS SERVICES`
+            );
+            
+            // Create Gmail compose URL
+            const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=ls_service2k25@outlook.fr&su=${subject}&body=${body}`;
+            
+            // Try to open Gmail compose
+            const newWindow = window.open(gmailURL, '_blank');
+            
+            if (newWindow) {
+                showNotification('Votre client email va s\'ouvrir pour envoyer le message.', 'success');
+                
+                // Reset form
+                document.getElementById('contact-form').reset();
+            } else {
+                // Fallback: copy email to clipboard and show notification
+                const emailText = `À: ls_service2k25@outlook.fr\nObjet: Contact depuis le site LS SERVICES\n\nNom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+                
+                navigator.clipboard.writeText(emailText).then(() => {
+                    showNotification('Les informations ont été copiées dans le presse-papier. Collez-les dans votre client email.', 'success');
+                }).catch(() => {
+                    showNotification('Veuillez envoyer votre message directement à: ls_service2k25@outlook.fr', 'error');
+                });
+            }
+        }
     </script>
 </body>
 </html>
