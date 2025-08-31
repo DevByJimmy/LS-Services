@@ -34,6 +34,33 @@
                 display: none;
             }
         }
+        
+        /* Animation pour les notifications */
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .notification {
+            animation: slideInRight 0.3s ease-out;
+        }
+        
+        /* Pulse animation pour le bouton PayPal */
+        .pulse-paypal {
+            animation: pulse-paypal 2s infinite;
+        }
+        
+        @keyframes pulse-paypal {
+            0% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(124, 58, 237, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
+        }
     </style>
 </head>
 <body class="font-sans bg-gray-50">
@@ -144,7 +171,7 @@
                 <h2 class="text-3xl font-bold mb-6 text-gray-800">Contactez-nous</h2>
                 <div class="flex flex-col md:flex-row">
                     <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
-                        <form id="contact-form" class="space-y-4">
+                        <div id="contact-form" class="space-y-4">
                             <div>
                                 <label for="name" class="block text-gray-700 mb-2">Nom</label>
                                 <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
@@ -157,8 +184,8 @@
                                 <label for="message" class="block text-gray-700 mb-2">Message</label>
                                 <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
                             </div>
-                            <button type="submit" class="gradient-bg text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition">Envoyer</button>
-                        </form>
+                            <button type="button" onclick="sendEmail()" class="gradient-bg text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition">Envoyer</button>
+                        </div>
                     </div>
                     <div class="md:w-1/2">
                         <div class="bg-purple-50 rounded-lg p-6 h-full">
@@ -387,6 +414,7 @@
                         <h3 class="text-xl font-bold mb-4 text-gray-800 flex items-center">
                             <i class="fas fa-shopping-cart text-purple-600 mr-2"></i>
                             Votre Panier
+                            <span id="cart-count" class="bg-purple-600 text-white rounded-full text-xs px-2 py-1 ml-2 hidden">0</span>
                         </h3>
                         
                         <div id="cart-items" class="mb-4 max-h-96 overflow-y-auto">
@@ -397,10 +425,11 @@
                         <div class="border-t border-gray-200 pt-4">
                             <div class="flex justify-between mb-2">
                                 <span class="font-medium">Total:</span>
-                                <span id="cart-total" class="font-bold">0.00€</span>
+                                <span id="cart-total" class="font-bold text-purple-600">0.00€</span>
                             </div>
                             
-                            <button id="checkout-btn" onclick="checkout()" class="gradient-bg text-white w-full py-3 rounded-lg font-bold hover:opacity-90 transition disabled:opacity-50" disabled>
+                            <button id="checkout-btn" onclick="checkout()" class="gradient-bg text-white w-full py-3 rounded-lg font-bold hover:opacity-90 transition disabled:opacity-50 pulse-paypal" disabled>
+                                <i class="fab fa-paypal mr-2"></i>
                                 Payer avec PayPal
                             </button>
                             
@@ -408,6 +437,11 @@
                                 <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg" alt="PayPal" class="inline-block">
                                 <p class="text-xs text-gray-500 mt-2">Paiement sécurisé via PayPal</p>
                             </div>
+                            
+                            <button onclick="clearCart()" class="w-full mt-2 py-2 text-red-600 hover:text-red-800 font-medium text-sm transition">
+                                <i class="fas fa-trash mr-1"></i>
+                                Vider le panier
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -429,10 +463,10 @@
                 </div>
                 
                 <div class="flex space-x-6">
-                    <a href="mailto:ls_service2k25@outlook.fr" class="hover:text-purple-200 transition">
+                    <a href="mailto:ls_service2k25@outlook.fr" class="hover:text-purple-200 transition" title="Email">
                         <i class="fas fa-envelope text-xl"></i>
                     </a>
-                    <a href="https://www.paypal.me/LSSERVICES2k25" target="_blank" class="hover:text-purple-200 transition">
+                    <a href="https://www.paypal.me/LSSERVICES2k25" target="_blank" class="hover:text-purple-200 transition" title="PayPal">
                         <i class="fab fa-paypal text-xl"></i>
                     </a>
                 </div>
@@ -444,36 +478,101 @@
         </div>
     </footer>
 
+    <!-- Order Confirmation Modal -->
+    <div id="order-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-check text-green-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Commande en cours de traitement</h3>
+                <p class="text-gray-600 mb-6">Vous allez être redirigé vers PayPal pour finaliser votre paiement.</p>
+                
+                <div id="order-summary" class="bg-gray-50 rounded-lg p-4 mb-6 text-left">
+                    <!-- Order details will be inserted here -->
+                </div>
+                
+                <div class="flex space-x-4">
+                    <button onclick="closeOrderModal()" class="flex-1 py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50">
+                        Annuler
+                    </button>
+                    <button id="confirm-paypal" class="flex-1 gradient-bg text-white py-2 px-4 rounded-lg hover:opacity-90">
+                        <i class="fab fa-paypal mr-2"></i>
+                        Continuer vers PayPal
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Local Storage for cart persistence
-        let cart = JSON.parse(localStorage.getItem('ls_services_cart')) || [];
+        // Variables globales
+        let cart = [];
         
         // DOM Elements
         const hamburgerMenu = document.getElementById('hamburger-menu');
         const mobileMenu = document.getElementById('mobile-menu');
-        const contactForm = document.getElementById('contact-form');
         const cartItemsContainer = document.getElementById('cart-items');
         const emptyCartMessage = document.getElementById('empty-cart-message');
         const cartTotal = document.getElementById('cart-total');
+        const cartCount = document.getElementById('cart-count');
         const checkoutBtn = document.getElementById('checkout-btn');
+        const orderModal = document.getElementById('order-modal');
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCartFromStorage();
+            updateCart();
+        });
         
         // Mobile menu toggle
         hamburgerMenu.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
         
-        // Contact form submission
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
+        // Email contact function
+        function sendEmail() {
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
             
-            // Here you would typically send this data to a server
-            alert(`Merci ${name} pour votre message! Nous vous répondrons bientôt à ${email}.`);
-            contactForm.reset();
-        });
+            if (!name || !email || !message) {
+                showNotification('Veuillez remplir tous les champs', 'error');
+                return;
+            }
+            
+            // Construire le lien mailto
+            const subject = encodeURIComponent('Contact depuis le site LS SERVICES');
+            const body = encodeURIComponent(`Nom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+            const mailtoLink = `mailto:ls_service2k25@outlook.fr?subject=${subject}&body=${body}`;
+            
+            // Ouvrir le client email
+            window.location.href = mailtoLink;
+            
+            showNotification(`Merci ${name}! Votre client email va s'ouvrir.`, 'success');
+            
+            // Reset form
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('message').value = '';
+        }
+        
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
+            const icon = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-triangle';
+            
+            notification.className = `notification fixed top-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 max-w-sm`;
+            notification.innerHTML = `<i class="${icon} mr-2"></i> ${message}`;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+                setTimeout(() => notification.remove(), 300);
+            }, 4000);
+        }
         
         // Add to cart function
         function addToCart(name, price) {
@@ -484,6 +583,7 @@
                 existingItem.quantity += 1;
             } else {
                 cart.push({
+                    id: Date.now() + Math.random(), // Unique ID
                     name: name,
                     price: price,
                     quantity: 1
@@ -491,18 +591,9 @@
             }
             
             updateCart();
-            saveCartToLocalStorage();
+            saveCartToStorage();
             
-            // Show success message
-            const notification = document.createElement('div');
-            notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-fade-in-out';
-            notification.innerHTML = `<i class="fas fa-check-circle mr-2"></i> ${name} ajouté au panier!`;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.classList.add('opacity-0', 'transition-opacity', 'duration-300');
-                setTimeout(() => notification.remove(), 300);
-            }, 2000);
+            showNotification(`${name} ajouté au panier!`, 'success');
         }
         
         // Update cart display
@@ -513,40 +604,45 @@
             if (cart.length === 0) {
                 emptyCartMessage.classList.remove('hidden');
                 checkoutBtn.disabled = true;
+                checkoutBtn.classList.remove('pulse-paypal');
                 cartTotal.textContent = '0.00€';
+                cartCount.classList.add('hidden');
                 return;
             }
             
             emptyCartMessage.classList.add('hidden');
             checkoutBtn.disabled = false;
+            checkoutBtn.classList.add('pulse-paypal');
             
             let total = 0;
+            let totalItems = 0;
             
             cart.forEach((item, index) => {
                 const itemTotal = item.price * item.quantity;
                 total += itemTotal;
+                totalItems += item.quantity;
                 
                 const cartItem = document.createElement('div');
-                cartItem.className = 'cart-item bg-gray-50 rounded-lg p-3 mb-2';
+                cartItem.className = 'cart-item bg-gray-50 rounded-lg p-3 mb-2 border border-gray-100';
                 cartItem.innerHTML = `
                     <div class="flex justify-between items-start">
                         <div class="flex-1">
-                            <h4 class="font-medium text-gray-800">${item.name}</h4>
-                            <div class="flex items-center mt-1">
-                                <button onclick="updateQuantity(${index}, -1)" class="text-gray-500 hover:text-purple-600">
+                            <h4 class="font-medium text-gray-800 text-sm leading-tight">${item.name}</h4>
+                            <div class="flex items-center mt-2 space-x-2">
+                                <button onclick="updateQuantity(${index}, -1)" class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-purple-600 hover:bg-purple-100 rounded">
                                     <i class="fas fa-minus text-xs"></i>
                                 </button>
-                                <span class="mx-2 text-sm">${item.quantity}</span>
-                                <button onclick="updateQuantity(${index}, 1)" class="text-gray-500 hover:text-purple-600">
+                                <span class="text-sm font-medium min-w-[20px] text-center">${item.quantity}</span>
+                                <button onclick="updateQuantity(${index}, 1)" class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-purple-600 hover:bg-purple-100 rounded">
                                     <i class="fas fa-plus text-xs"></i>
                                 </button>
-                                <span class="ml-2 text-sm text-gray-500">× ${item.price.toFixed(2)}€</span>
+                                <span class="text-xs text-gray-500 ml-2">× ${item.price.toFixed(2)}€</span>
                             </div>
                         </div>
-                        <div class="flex items-center">
-                            <span class="font-medium text-gray-800">${itemTotal.toFixed(2)}€</span>
-                            <button onclick="removeFromCart(${index})" class="ml-2 text-red-500 hover:text-red-700">
-                                <i class="fas fa-times"></i>
+                        <div class="flex items-center ml-2">
+                            <span class="font-medium text-purple-600 text-sm">${itemTotal.toFixed(2)}€</span>
+                            <button onclick="removeFromCart(${index})" class="ml-2 w-6 h-6 flex items-center justify-center text-red-500 hover:text-red-700 hover:bg-red-100 rounded">
+                                <i class="fas fa-times text-xs"></i>
                             </button>
                         </div>
                     </div>
@@ -556,6 +652,8 @@
             });
             
             cartTotal.textContent = total.toFixed(2) + '€';
+            cartCount.textContent = totalItems;
+            cartCount.classList.remove('hidden');
         }
         
         // Update item quantity
@@ -568,37 +666,122 @@
             }
             
             updateCart();
-            saveCartToLocalStorage();
+            saveCartToStorage();
         }
         
         // Remove item from cart
         function removeFromCart(index) {
+            const item = cart[index];
             cart.splice(index, 1);
             updateCart();
-            saveCartToLocalStorage();
+            saveCartToStorage();
+            showNotification(`${item.name} retiré du panier`, 'error');
         }
         
-        // Save cart to local storage
-        function saveCartToLocalStorage() {
-            localStorage.setItem('ls_services_cart', JSON.stringify(cart));
+        // Clear entire cart
+        function clearCart() {
+            if (cart.length === 0) return;
+            
+            if (confirm('Êtes-vous sûr de vouloir vider le panier ?')) {
+                cart = [];
+                updateCart();
+                saveCartToStorage();
+                showNotification('Panier vidé', 'error');
+            }
         }
         
-        // Checkout function
+        // Save cart to localStorage
+        function saveCartToStorage() {
+            try {
+                // Note: In artifacts, we can't use localStorage, so we'll skip this
+                // localStorage.setItem('ls_services_cart', JSON.stringify(cart));
+            } catch (error) {
+                console.log('Storage not available');
+            }
+        }
+        
+        // Load cart from localStorage
+        function loadCartFromStorage() {
+            try {
+                // Note: In artifacts, we can't use localStorage, so we'll skip this
+                // const savedCart = localStorage.getItem('ls_services_cart');
+                // if (savedCart) {
+                //     cart = JSON.parse(savedCart);
+                // }
+            } catch (error) {
+                console.log('Storage not available');
+                cart = [];
+            }
+        }
+        
+        // Checkout function with PayPal.me integration
         function checkout() {
             if (cart.length === 0) return;
             
             // Calculate total
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             
-            // Here you would typically redirect to PayPal with the order details
-            // For demo purposes, we'll just show a confirmation
-            alert(`Redirection vers PayPal pour payer ${total.toFixed(2)}€. Après paiement, nous traiterons votre commande.`);
+            // Generate order summary
+            const orderSummary = document.getElementById('order-summary');
+            let summaryHTML = '<h4 class="font-bold text-gray-800 mb-2">Résumé de la commande:</h4>';
             
-            // Clear cart after checkout
-            cart = [];
-            updateCart();
-            saveCartToLocalStorage();
+            cart.forEach(item => {
+                summaryHTML += `
+                    <div class="flex justify-between text-sm mb-1">
+                        <span>${item.name} (x${item.quantity})</span>
+                        <span>${(item.price * item.quantity).toFixed(2)}€</span>
+                    </div>
+                `;
+            });
+            
+            summaryHTML += `
+                <div class="border-t pt-2 mt-2">
+                    <div class="flex justify-between font-bold">
+                        <span>Total:</span>
+                        <span class="text-purple-600">${total.toFixed(2)}€</span>
+                    </div>
+                </div>
+            `;
+            
+            orderSummary.innerHTML = summaryHTML;
+            
+            // Show confirmation modal
+            orderModal.classList.remove('hidden');
+            
+            // Setup PayPal redirect
+            document.getElementById('confirm-paypal').onclick = function() {
+                const paypalURL = `https://www.paypal.me/LSSERVICES2k25/${total.toFixed(2)}EUR`;
+                
+                // Generate order details for tracking
+                const orderDetails = cart.map(item => `${item.name} (x${item.quantity})`).join(', ');
+                
+                // Open PayPal in new tab
+                window.open(paypalURL, '_blank');
+                
+                // Show success message
+                closeOrderModal();
+                showNotification('Redirection vers PayPal effectuée. Après paiement, vous recevrez les détails par email.', 'success');
+                
+                // Optionally clear cart after successful redirect
+                setTimeout(() => {
+                    if (confirm('Souhaitez-vous vider votre panier maintenant ?')) {
+                        clearCart();
+                    }
+                }, 2000);
+            };
         }
+        
+        // Close order modal
+        function closeOrderModal() {
+            orderModal.classList.add('hidden');
+        }
+        
+        // Close modal when clicking outside
+        orderModal.addEventListener('click', function(e) {
+            if (e.target === orderModal) {
+                closeOrderModal();
+            }
+        });
         
         // Load shop page
         function loadShopPage() {
@@ -636,7 +819,7 @@
         // Handle navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                if (this.getAttribute('href') === '#') return;
+                if (this.getAttribute('href') === '#' || this.getAttribute('href') === 'javascript:void(0);') return;
                 
                 e.preventDefault();
                 
@@ -644,9 +827,12 @@
                 if (targetId === '#home') {
                     loadHomePage();
                 } else {
-                    document.querySelector(targetId).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
                 }
                 
                 // Close mobile menu if open
@@ -656,7 +842,15 @@
             });
         });
         
-        // Initialize cart on page load
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Escape key closes modal
+            if (e.key === 'Escape') {
+                closeOrderModal();
+            }
+        });
+        
+        // Initialize page
         updateCart();
     </script>
 </body>
