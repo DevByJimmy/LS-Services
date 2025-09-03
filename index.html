@@ -1,846 +1,117 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LS SERVICES - Vente de services premium</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .gradient-bg {
-            background: linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%);
-        }
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        .cart-item {
-            transition: all 0.3s ease;
-        }
-        .cart-item:hover {
-            background-color: #f8f9fa;
-        }
-        #hamburger-menu {
-            display: none;
-        }
-        @media (max-width: 768px) {
-            #nav-menu {
-                display: none;
-            }
-            #hamburger-menu {
-                display: block;
-            }
-            #mobile-menu {
-                display: none;
-            }
-        }
-        
-        /* Animation pour les notifications */
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        .notification {
-            animation: slideInRight 0.3s ease-out;
-        }
-        
-        /* Pulse animation pour le bouton PayPal */
-        .pulse-paypal {
-            animation: pulse-paypal 2s infinite;
-        }
-        
-        @keyframes pulse-paypal {
-            0% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(124, 58, 237, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
-        }
-    </style>
-</head>
-<body class="font-sans bg-gray-50">
-    <!-- Header -->
-    <header class="gradient-bg text-white shadow-lg">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center">
-                <img src="https://media.discordapp.net/attachments/1404284668869869618/1411140967901167761/Nouveau_projet_1.png?ex=68b58d30&is=68b43bb0&hm=a2882728098199475f5e0e7e176d99c310b4716afa6ae2d98fb81368a3253a94&=&format=webp&quality=lossless&width=640&height=640" 
-                     alt="LS SERVICES Logo" class="h-12 w-12 rounded-full mr-3">
-                <h1 class="text-2xl font-bold">LS SERVICES</h1>
-            </div>
-            
-            <nav id="nav-menu" class="hidden md:block">
-                <ul class="flex space-x-6">
-                    <li><a href="#home" class="hover:text-purple-200 transition">Accueil</a></li>
-                    <li><a href="#about" class="hover:text-purple-200 transition">À propos</a></li>
-                    <li><a href="#contact" class="hover:text-purple-200 transition">Contact</a></li>
-                    <li><a href="javascript:void(0);" onclick="loadShopPage()" class="bg-white text-purple-700 px-4 py-2 rounded-lg font-medium hover:bg-purple-100 transition">Boutique</a></li>
-                </ul>
-            </nav>
-            
-            <button id="hamburger-menu" class="text-white focus:outline-none">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
-        </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-purple-800 px-4 py-2">
-            <ul class="space-y-2">
-                <li><a href="#home" class="block hover:bg-purple-700 px-3 py-2 rounded">Accueil</a></li>
-                <li><a href="#about" class="block hover:bg-purple-700 px-3 py-2 rounded">À propos</a></li>
-                <li><a href="#contact" class="block hover:bg-purple-700 px-3 py-2 rounded">Contact</a></li>
-                <li><a href="javascript:void(0);" onclick="loadShopPage()" class="block bg-white text-purple-700 px-3 py-2 rounded font-medium">Boutique</a></li>
-            </ul>
-        </div>
-    </header>
+# LS SERVICES 🌐
 
-    <!-- Main Content -->
-    <main id="main-content" class="container mx-auto px-4 py-8">
-        <!-- Home Page -->
-        <div id="home-page">
-            <!-- Hero Section -->
-            <section id="home" class="gradient-bg text-white rounded-xl shadow-lg p-8 mb-12">
-                <div class="flex flex-col md:flex-row items-center">
-                    <div class="md:w-1/2 mb-8 md:mb-0">
-                        <h2 class="text-4xl font-bold mb-4">Services Premium pour vos réseaux sociaux</h2>
-                        <p class="text-xl mb-6">Boostez votre présence en ligne avec nos services de qualité à des prix imbattables.</p>
-                        <a href="javascript:void(0);" onclick="loadShopPage()" class="bg-white text-purple-700 px-6 py-3 rounded-lg font-bold hover:bg-purple-100 transition inline-block">Découvrir la boutique</a>
-                    </div>
-                    <div class="md:w-1/2 flex justify-center">
-                        <img src="https://media.discordapp.net/attachments/1404284668869869618/1411140967901167761/Nouveau_projet_1.png?ex=68b58d30&is=68b43bb0&hm=a2882728098199475f5e0e7e176d99c310b4716afa6ae2d98fb81368a3253a94&=&format=webp&quality=lossless&width=640&height=640" 
-                             alt="Services sociaux" class="rounded-lg shadow-xl w-64 h-64 object-cover">
-                    </div>
-                </div>
-            </section>
+> Site web de vente de services numériques - TikTok, Discord, Comptes Premium et plus encore
 
-            <!-- Services Preview -->
-            <section class="mb-12">
-                <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Nos Services Populaires</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="service-card bg-white rounded-xl shadow-md p-6 transition">
-                        <div class="text-purple-600 mb-4">
-                            <i class="fab fa-tiktok text-4xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3">TikTok Services</h3>
-                        <p class="text-gray-600 mb-4">Augmentez vos followers, likes et vues sur TikTok avec nos services rapides et fiables.</p>
-                        <div class="text-purple-600 font-bold">À partir de 2.75€</div>
-                    </div>
-                    
-                    <div class="service-card bg-white rounded-xl shadow-md p-6 transition">
-                        <div class="text-purple-600 mb-4">
-                            <i class="fab fa-discord text-4xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3">Décoration Discord</h3>
-                        <p class="text-gray-600 mb-4">Personnalisez votre serveur Discord avec nos décorations premium à prix réduits.</p>
-                        <div class="text-purple-600 font-bold">À partir de 1.25€</div>
-                    </div>
-                    
-                    <div class="service-card bg-white rounded-xl shadow-md p-6 transition">
-                        <div class="text-purple-600 mb-4">
-                            <i class="fas fa-gamepad text-4xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3">Robux Roblox</h3>
-                        <p class="text-gray-600 mb-4">Obtenez des Robux pour Roblox à des prix imbattables pour améliorer votre expérience de jeu.</p>
-                        <div class="text-purple-600 font-bold">À partir de 5.50€</div>
-                    </div>
-                </div>
-            </section>
+## 📋 Description
 
-            <!-- About Section -->
-            <section id="about" class="bg-white rounded-xl shadow-md p-8 mb-12">
-                <h2 class="text-3xl font-bold mb-6 text-gray-800">À propos de LS SERVICES</h2>
-                <div class="flex flex-col md:flex-row items-center">
-                    <div class="md:w-1/2 mb-6 md:mb-0 md:pr-8">
-                        <p class="text-gray-600 mb-4">LS SERVICES est une entreprise spécialisée dans la vente de services pour les réseaux sociaux et plateformes en ligne.</p>
-                        <p class="text-gray-600 mb-4">Nous proposons des solutions abordables et fiables pour booster votre présence en ligne, que vous soyez un particulier ou une entreprise.</p>
-                        <p class="text-gray-600">Notre équipe est composée de professionnels passionnés qui s'engagent à fournir un service de qualité à tous nos clients.</p>
-                    </div>
-                    <div class="md:w-1/2">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
-                             alt="À propos" class="rounded-lg shadow-md w-full h-auto">
-                    </div>
-                </div>
-            </section>
+LS SERVICES est une plateforme en ligne spécialisée dans la vente de services numériques, notamment pour TikTok (followers, likes, vues), Discord (décorations), et de comptes premium pour diverses plateformes. Le site propose une interface moderne et intuitive pour permettre aux utilisateurs d'acheter facilement différents services.
 
-            <!-- Contact Section -->
-            <section id="contact" class="bg-white rounded-xl shadow-md p-8">
-                <h2 class="text-3xl font-bold mb-6 text-gray-800">Contactez-nous</h2>
-                <div class="flex flex-col md:flex-row">
-                    <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
-                        <form id="contact-form" class="space-y-4" onsubmit="sendEmail(event)">
-                            <div>
-                                <label for="name" class="block text-gray-700 mb-2">Nom</label>
-                                <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
-                            </div>
-                            <div>
-                                <label for="email" class="block text-gray-700 mb-2">Email</label>
-                                <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
-                            </div>
-                            <div>
-                                <label for="message" class="block text-gray-700 mb-2">Message</label>
-                                <textarea id="message" name="message" rows="5" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
-                            </div>
-                            <button type="submit" class="gradient-bg text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition">
-                                <i class="fas fa-paper-plane mr-2"></i>Envoyer
-                            </button>
-                        </form>
-                        
-                        <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                            <p class="text-sm text-blue-700">
-                                <i class="fas fa-info-circle mr-2"></i>
-                                Vous pouvez aussi nous contacter directement par email : 
-                                <a href="mailto:ls_services2k25@outlook.fr" class="font-medium underline">ls_services2k25@outlook.fr</a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="md:w-1/2">
-                        <div class="bg-purple-50 rounded-lg p-6 h-full">
-                            <h3 class="text-xl font-bold mb-4 text-gray-800">Informations de contact</h3>
-                            <div class="space-y-4">
-                                <div class="flex items-start">
-                                    <i class="fas fa-envelope text-purple-600 mt-1 mr-3"></i>
-                                    <div>
-                                        <h4 class="font-bold text-gray-700">Email</h4>
-                                        <p class="text-gray-600">ls_services2k25@outlook.fr</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start">
-                                    <i class="fab fa-paypal text-purple-600 mt-1 mr-3"></i>
-                                    <div>
-                                        <h4 class="font-bold text-gray-700">PayPal</h4>
-                                        <p class="text-gray-600">paypal.me/LSSERVICES2k25</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+## ✨ Fonctionnalités
 
-        <!-- Shop Page (initially hidden) -->
-        <div id="shop-page" class="hidden">
-            <div class="flex flex-col md:flex-row gap-8">
-                <!-- Products Column -->
-                <div class="md:w-3/4">
-                    <h2 class="text-3xl font-bold mb-8 text-gray-800">Boutique LS SERVICES</h2>
-                    
-                    <!-- TikTok Services -->
-                    <div class="bg-white rounded-xl shadow-md p-6 mb-8">
-                        <div class="flex items-center mb-6">
-                            <i class="fab fa-tiktok text-3xl text-purple-600 mr-3"></i>
-                            <h3 class="text-2xl font-bold text-gray-800">TikTok Services</h3>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!-- Followers -->
-                            <div class="border border-gray-200 rounded-lg p-4">
-                                <h4 class="font-bold text-lg mb-3 text-gray-700">Followers</h4>
-                                <ul class="space-y-2">
-                                    <li class="flex justify-between items-center">
-                                        <span>1.000 Followers</span>
-                                        <button onclick="addToCart('TikTok - 1.000 Followers', 4.00)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">4.00€</button>
-                                    </li>
-                                    <li class="flex justify-between items-center">
-                                        <span>2.000 Followers</span>
-                                        <button onclick="addToCart('TikTok - 2.000 Followers', 5.90)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">5.90€</button>
-                                    </li>
-                                    <li class="flex justify-between items-center">
-                                        <span>5.000 Followers</span>
-                                        <button onclick="addToCart('TikTok - 5.000 Followers', 15.50)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">15.50€</button>
-                                    </li>
-                                    <li class="flex justify-between items-center">
-                                        <span>10.000 Followers</span>
-                                        <button onclick="addToCart('TikTok - 10.000 Followers', 29.00)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">29.00€</button>
-                                    </li>
-                                </ul>
-                            </div>
-                            
-                            <!-- Likes -->
-                            <div class="border border-gray-200 rounded-lg p-4">
-                                <h4 class="font-bold text-lg mb-3 text-gray-700">Likes</h4>
-                                <ul class="space-y-2">
-                                    <li class="flex justify-between items-center">
-                                        <span>1.000 Likes</span>
-                                        <button onclick="addToCart('TikTok - 1.000 Likes', 2.75)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">2.75€</button>
-                                    </li>
-                                    <li class="flex justify-between items-center">
-                                        <span>2.500 Likes</span>
-                                        <button onclick="addToCart('TikTok - 2.500 Likes', 3.20)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">3.20€</button>
-                                    </li>
-                                    <li class="flex justify-between items-center">
-                                        <span>7.500 Likes</span>
-                                        <button onclick="addToCart('TikTok - 7.500 Likes', 4.00)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">4.00€</button>
-                                    </li>
-                                    <li class="flex justify-between items-center">
-                                        <span>15.000 Likes</span>
-                                        <button onclick="addToCart('TikTok - 15.000 Likes', 5.50)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">5.50€</button>
-                                    </li>
-                                    <li class="flex justify-between items-center">
-                                        <span>50.000 Likes</span>
-                                        <button onclick="addToCart('TikTok - 50.000 Likes', 12.60)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">12.60€</button>
-                                    </li>
-                                    <li class="flex justify-between items-center">
-                                        <span>100.000 Likes</span>
-                                        <button onclick="addToCart('TikTok - 100.000 Likes', 16.90)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">16.90€</button>
-                                    </li>
-                                </ul>
-                            </div>
-                            
-                            <!-- Vues -->
-                            <div class="border border-gray-200 rounded-lg p-4">
-                                <h4 class="font-bold text-lg mb-3 text-gray-700">Vues</h4>
-                                <ul class="space-y-2">
-                                    <li class="flex justify-between items-center">
-                                        <span>100.000 Vues</span>
-                                        <button onclick="addToCart('TikTok - 100.000 Vues', 3.50)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">3.50€</button>
-                                    </li>
-                                    <li class="flex justify-between items-center">
-                                        <span>500.000 Vues</span>
-                                        <button onclick="addToCart('TikTok - 500.000 Vues', 4.80)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">4.80€</button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Discord Services -->
-                    <div class="bg-white rounded-xl shadow-md p-6 mb-8">
-                        <div class="flex items-center mb-6">
-                            <i class="fab fa-discord text-3xl text-purple-600 mr-3"></i>
-                            <h3 class="text-2xl font-bold text-gray-800">Décoration Discord</h3>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
-                            <div class="border border-gray-200 rounded-lg p-4">
-                                <h4 class="font-bold text-lg mb-3 text-gray-700">Discord Décorations</h4>
-                                <ul class="space-y-2">
-                                    <li class="flex justify-between items-center">
-                                        <span>4.99€ → 1.25€</span>
-                                        <button onclick="addToCart('Discord Deco - 4.99€ → 1.25€', 1.25)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">1.25€</button>
-                                    </li>
-                                    <li class="flex justify-between items-center">
-                                        <span>5.99€ → 2.00€</span>
-                                        <button onclick="addToCart('Discord Deco - 5.99€ → 2.00€', 2.00)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">2.00€</button>
-                                    </li>
-                                    <li class="flex justify-between items-center">
-                                        <span>7.99€ → 3.50€</span>
-                                        <button onclick="addToCart('Discord Deco - 7.99€ → 3.50€', 3.50)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">3.50€</button>
-                                    </li>
-                                    <li class="flex justify-between items-center">
-                                        <span>9.99€ → 3.90€</span>
-                                        <button onclick="addToCart('Discord Deco - 9.99€ → 3.90€', 3.90)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">3.90€</button>
-                                    </li>
-                                    <li class="flex justify-between items-center">
-                                        <span>11.99€ → 4.00€</span>
-                                        <button onclick="addToCart('Discord Deco - 11.99€ → 4.00€', 4.00)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">4.00€</button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Roblox Services -->
-                    <div class="bg-white rounded-xl shadow-md p-6 mb-8">
-                        <div class="flex items-center mb-6">
-                            <i class="fas fa-gamepad text-3xl text-purple-600 mr-3"></i>
-                            <h3 class="text-2xl font-bold text-gray-800">Robux Roblox</h3>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="border border-gray-200 rounded-lg p-4">
-                                <ul class="space-y-2">
-                                    <li class="flex justify-between items-center">
-                                        <span>1.000 Robux</span>
-                                        <button onclick="addToCart('Roblox - 1.000 Robux', 5.50)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">5.50€</button>
-                                    </li>
-                                    <li class="flex justify-between items-center">
-                                        <span>2.500 Robux</span>
-                                        <button onclick="addToCart('Roblox - 2.500 Robux', 7.00)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">7.00€</button>
-                                    </li>
-                                    <li class="flex justify-between items-center">
-                                        <span>5.000 Robux</span>
-                                        <button onclick="addToCart('Roblox - 5.000 Robux', 10.00)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">10.00€</button>
-                                    </li>
-                                    <li class="flex justify-between items-center">
-                                        <span>10.000 Robux</span>
-                                        <button onclick="addToCart('Roblox - 10.000 Robux', 15.00)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">15.00€</button>
-                                    </li>
-                                    <li class="flex justify-between items-center">
-                                        <span>15.000 Robux</span>
-                                        <button onclick="addToCart('Roblox - 15.000 Robux', 23.00)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">23.00€</button>
-                                    </li>
-                                    <li class="flex justify-between items-center">
-                                        <span>25.000 Robux</span>
-                                        <button onclick="addToCart('Roblox - 25.000 Robux', 35.00)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">35.00€</button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Other Services -->
-                    <div class="bg-white rounded-xl shadow-md p-6">
-                        <div class="flex items-center mb-6">
-                            <i class="fas fa-star text-3xl text-purple-600 mr-3"></i>
-                            <h3 class="text-2xl font-bold text-gray-800">Autres Services</h3>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="border border-gray-200 rounded-lg p-4">
-                                <h4 class="font-bold text-lg mb-3 text-gray-700">Spotify Premium</h4>
-                                <ul class="space-y-2">
-                                    <li class="flex justify-between items-center">
-                                        <span>Compte Premium</span>
-                                        <button onclick="addToCart('Spotify - Compte Premium', 2.50)" class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">2.50€</button>
-                                    </li>
-                                </ul>
-                            </div>
-                            
-                            <div class="border border-gray-200 rounded-lg p-4">
-                                <h4 class="font-bold text-lg mb-3 text-gray-700">Compte Fresh</h4>
-                                <div class="flex justify-center items-center">
-                                    <span class="text-gray-500 italic">Soon...</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Cart Column -->
-                <div class="md:w-1/4">
-                    <div class="bg-white rounded-xl shadow-md p-6 sticky top-8">
-                        <h3 class="text-xl font-bold mb-4 text-gray-800 flex items-center">
-                            <i class="fas fa-shopping-cart text-purple-600 mr-2"></i>
-                            Votre Panier
-                            <span id="cart-count" class="bg-purple-600 text-white rounded-full text-xs px-2 py-1 ml-2 hidden">0</span>
-                        </h3>
-                        
-                        <div id="cart-items" class="mb-4 max-h-96 overflow-y-auto">
-                            <!-- Cart items will be added here dynamically -->
-                            <p id="empty-cart-message" class="text-gray-500 text-center py-4">Votre panier est vide</p>
-                        </div>
-                        
-                        <div class="border-t border-gray-200 pt-4">
-                            <div class="flex justify-between mb-2">
-                                <span class="font-medium">Total:</span>
-                                <span id="cart-total" class="font-bold text-purple-600">0.00€</span>
-                            </div>
-                            
-                            <button id="checkout-btn" onclick="checkout()" class="gradient-bg text-white w-full py-3 rounded-lg font-bold hover:opacity-90 transition disabled:opacity-50 pulse-paypal" disabled>
-                                <i class="fab fa-paypal mr-2"></i>
-                                Payer avec PayPal
-                            </button>
-                            
-                            <div class="mt-4 text-center">
-                                <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg" alt="PayPal" class="inline-block">
-                                <p class="text-xs text-gray-500 mt-2">Paiement sécurisé via PayPal</p>
-                            </div>
-                            
-                            <button onclick="clearCart()" class="w-full mt-2 py-2 text-red-600 hover:text-red-800 font-medium text-sm transition">
-                                <i class="fas fa-trash mr-1"></i>
-                                Vider le panier
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+- **Page d'accueil** - Présentation des services principaux
+- **Boutique** - Catalogue complet des services disponibles
+- **Système de paiement** - Intégration PayPal sécurisée
+- **Formulaires de contact** - Support client
+- **Page À propos** - Informations sur l'entreprise
+- **Design responsive** - Compatible mobile et desktop
+- **Système de panier** - Gestion des commandes en temps réel
+- **Notifications** - Retours visuels pour l'utilisateur
 
-    <!-- Footer -->
-    <footer class="gradient-bg text-white py-8">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <div class="flex items-center">
-                        <img src="https://media.discordapp.net/attachments/1404284668869869618/1411140967901167761/Nouveau_projet_1.png?ex=68b58d30&is=68b43bb0&hm=a2882728098199475f5e0e7e176d99c310b4716afa6ae2d98fb81368a3253a94&=&format=webp&quality=lossless&width=640&height=640" 
-                             alt="LS SERVICES Logo" class="h-10 w-10 rounded-full mr-3">
-                        <h2 class="text-xl font-bold">LS SERVICES</h2>
-                    </div>
-                    <p class="mt-2 text-purple-100">Services premium pour vos réseaux sociaux</p>
-                </div>
-                
-                <div class="flex space-x-6">
-                    <a href="mailto:ls_services2k25@outlook.fr" class="hover:text-purple-200 transition" title="Email">
-                        <i class="fas fa-envelope text-xl"></i>
-                    </a>
-                    <a href="https://www.paypal.me/LSSERVICES2k25" target="_blank" class="hover:text-purple-200 transition" title="PayPal">
-                        <i class="fab fa-paypal text-xl"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="border-t border-purple-400 mt-8 pt-6 text-center text-sm text-purple-100">
-                <p>&copy; 2025 LS SERVICES. Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer>
+## 🛍️ Services proposés
 
-    <!-- Order Confirmation Modal -->
-    <div id="order-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
-        <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4">
-            <div class="text-center">
-                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-check text-green-600 text-2xl"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800 mb-2">Commande en cours de traitement</h3>
-                <p class="text-gray-600 mb-6">Vous allez être redirigé vers PayPal pour finaliser votre paiement.</p>
-                
-                <div id="order-summary" class="bg-gray-50 rounded-lg p-4 mb-6 text-left">
-                    <!-- Order details will be inserted here -->
-                </div>
-                
-                <div class="flex space-x-4">
-                    <button onclick="closeOrderModal()" class="flex-1 py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50">
-                        Annuler
-                    </button>
-                    <button id="confirm-paypal" class="flex-1 gradient-bg text-white py-2 px-4 rounded-lg hover:opacity-90">
-                        <i class="fab fa-paypal mr-2"></i>
-                        Continuer vers PayPal
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+### TikTok Social Services
+- **Followers** : De 1.000 à 10.000 (4.00€ - 29.00€)
+- **Likes** : De 1.000 à 100.000 (2.75€ - 16.90€)  
+- **Vues** : De 100.000 à 500.000 (3.50€ - 4.80€)
 
-    <script>
-        // Variables globales
-        let cart = [];
-        
-        // DOM Elements
-        const hamburgerMenu = document.getElementById('hamburger-menu');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const cartItemsContainer = document.getElementById('cart-items');
-        const emptyCartMessage = document.getElementById('empty-cart-message');
-        const cartTotal = document.getElementById('cart-total');
-        const cartCount = document.getElementById('cart-count');
-        const checkoutBtn = document.getElementById('checkout-btn');
-        const orderModal = document.getElementById('order-modal');
-        
-        // Initialisation
-        document.addEventListener('DOMContentLoaded', function() {
-            updateCart();
-        });
-        
-        // Mobile menu toggle
-        hamburgerMenu.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-        
-        // Notification system
-        function showNotification(message, type = 'success') {
-            const notification = document.createElement('div');
-            const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
-            const icon = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-triangle';
-            
-            notification.className = `notification fixed top-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 max-w-sm`;
-            notification.innerHTML = `<i class="${icon} mr-2"></i> ${message}`;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.classList.add('opacity-0', 'transition-opacity', 'duration-300');
-                setTimeout(() => notification.remove(), 300);
-            }, 4000);
-        }
-        
-        // Add to cart function
-        function addToCart(name, price) {
-            // Check if item already exists in cart
-            const existingItem = cart.find(item => item.name === name);
-            
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({
-                    id: Date.now() + Math.random(), // Unique ID
-                    name: name,
-                    price: price,
-                    quantity: 1
-                });
-            }
-            
-            updateCart();
-            showNotification(`${name} ajouté au panier!`, 'success');
-        }
-        
-        // Update cart display
-        function updateCart() {
-            // Clear current items
-            cartItemsContainer.innerHTML = '';
-            
-            if (cart.length === 0) {
-                emptyCartMessage.classList.remove('hidden');
-                checkoutBtn.disabled = true;
-                checkoutBtn.classList.remove('pulse-paypal');
-                cartTotal.textContent = '0.00€';
-                cartCount.classList.add('hidden');
-                return;
-            }
-            
-            emptyCartMessage.classList.add('hidden');
-            checkoutBtn.disabled = false;
-            checkoutBtn.classList.add('pulse-paypal');
-            
-            let total = 0;
-            let totalItems = 0;
-            
-            cart.forEach((item, index) => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-                totalItems += item.quantity;
-                
-                const cartItem = document.createElement('div');
-                cartItem.className = 'cart-item bg-gray-50 rounded-lg p-3 mb-2 border border-gray-100';
-                cartItem.innerHTML = `
-                    <div class="flex justify-between items-start">
-                        <div class="flex-1">
-                            <h4 class="font-medium text-gray-800 text-sm leading-tight">${item.name}</h4>
-                            <div class="flex items-center mt-2 space-x-2">
-                                <button onclick="updateQuantity(${index}, -1)" class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-purple-600 hover:bg-purple-100 rounded">
-                                    <i class="fas fa-minus text-xs"></i>
-                                </button>
-                                <span class="text-sm font-medium min-w-[20px] text-center">${item.quantity}</span>
-                                <button onclick="updateQuantity(${index}, 1)" class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-purple-600 hover:bg-purple-100 rounded">
-                                    <i class="fas fa-plus text-xs"></i>
-                                </button>
-                                <span class="text-xs text-gray-500 ml-2">× ${item.price.toFixed(2)}€</span>
-                            </div>
-                        </div>
-                        <div class="flex items-center ml-2">
-                            <span class="font-medium text-purple-600 text-sm">${itemTotal.toFixed(2)}€</span>
-                            <button onclick="removeFromCart(${index})" class="ml-2 w-6 h-6 flex items-center justify-center text-red-500 hover:text-red-700 hover:bg-red-100 rounded">
-                                <i class="fas fa-times text-xs"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-                
-                cartItemsContainer.appendChild(cartItem);
-            });
-            
-            cartTotal.textContent = total.toFixed(2) + '€';
-            cartCount.textContent = totalItems;
-            cartCount.classList.remove('hidden');
-        }
-        
-        // Update item quantity
-        function updateQuantity(index, change) {
-            const item = cart[index];
-            item.quantity += change;
-            
-            if (item.quantity <= 0) {
-                cart.splice(index, 1);
-            }
-            
-            updateCart();
-        }
-        
-        // Remove item from cart
-        function removeFromCart(index) {
-            const item = cart[index];
-            cart.splice(index, 1);
-            updateCart();
-            showNotification(`${item.name} retiré du panier`, 'error');
-        }
-        
-        // Clear entire cart
-        function clearCart() {
-            if (cart.length === 0) return;
-            
-            if (confirm('Êtes-vous sûr de vouloir vider le panier ?')) {
-                cart = [];
-                updateCart();
-                showNotification('Panier vidé', 'error');
-            }
-        }
-        
-        // Checkout function with PayPal.me integration
-        function checkout() {
-            if (cart.length === 0) return;
-            
-            // Calculate total
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            // Generate order summary
-            const orderSummary = document.getElementById('order-summary');
-            let summaryHTML = '<h4 class="font-bold text-gray-800 mb-2">Résumé de la commande:</h4>';
-            
-            cart.forEach(item => {
-                summaryHTML += `
-                    <div class="flex justify-between text-sm mb-1">
-                        <span>${item.name} (x${item.quantity})</span>
-                        <span>${(item.price * item.quantity).toFixed(2)}€</span>
-                    </div>
-                `;
-            });
-            
-            summaryHTML += `
-                <div class="border-t pt-2 mt-2">
-                    <div class="flex justify-between font-bold">
-                        <span>Total:</span>
-                        <span class="text-purple-600">${total.toFixed(2)}€</span>
-                    </div>
-                </div>
-            `;
-            
-            orderSummary.innerHTML = summaryHTML;
-            
-            // Show confirmation modal
-            orderModal.classList.remove('hidden');
-            
-            // Setup PayPal redirect
-            document.getElementById('confirm-paypal').onclick = function() {
-                const paypalURL = `https://www.paypal.me/LSSERVICES2k25/${total.toFixed(2)}EUR`;
-                
-                // Generate order details for tracking
-                const orderDetails = cart.map(item => `${item.name} (x${item.quantity})`).join(', ');
-                
-                // Create order info string
-                const orderInfo = `Commande LS SERVICES:\n\n${orderDetails}\n\nTotal: ${total.toFixed(2)}€\n\nMerci de nous envoyer vos détails après paiement à: ls_service2k25@outlook.fr`;
-                
-                // Open PayPal in new tab
-                window.open(paypalURL, '_blank');
-                
-                // Show success message with email info
-                closeOrderModal();
-                showNotification('Redirection vers PayPal effectuée. Après paiement, envoyez-nous vos détails par email pour livraison.', 'success');
-                
-                // Optionally clear cart after successful redirect
-                setTimeout(() => {
-                    if (confirm('Souhaitez-vous vider votre panier maintenant ?')) {
-                        clearCart();
-                    }
-                }, 2000);
-            };
-        }
-        
-        // Close order modal
-        function closeOrderModal() {
-            orderModal.classList.add('hidden');
-        }
-        
-        // Close modal when clicking outside
-        orderModal.addEventListener('click', function(e) {
-            if (e.target === orderModal) {
-                closeOrderModal();
-            }
-        });
-        
-        // Load shop page
-        function loadShopPage() {
-            document.getElementById('home-page').classList.add('hidden');
-            document.getElementById('shop-page').classList.remove('hidden');
-            
-            // Update nav active state
-            const navLinks = document.querySelectorAll('#nav-menu a, #mobile-menu a');
-            navLinks.forEach(link => {
-                link.classList.remove('bg-white', 'text-purple-700');
-                if (link.textContent === 'Boutique') {
-                    link.classList.add('bg-white', 'text-purple-700');
-                }
-            });
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-        }
-        
-        // Load home page (default)
-        function loadHomePage() {
-            document.getElementById('home-page').classList.remove('hidden');
-            document.getElementById('shop-page').classList.add('hidden');
-            
-            // Update nav active state
-            const navLinks = document.querySelectorAll('#nav-menu a, #mobile-menu a');
-            navLinks.forEach(link => {
-                link.classList.remove('bg-white', 'text-purple-700');
-                if (link.getAttribute('href') === '#home') {
-                    link.classList.add('bg-white', 'text-purple-700');
-                }
-            });
-        }
-        
-        // Handle navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                if (this.getAttribute('href') === '#' || this.getAttribute('href') === 'javascript:void(0);') return;
-                
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#home') {
-                    loadHomePage();
-                } else {
-                    const target = document.querySelector(targetId);
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-                
-                // Close mobile menu if open
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                }
-            });
-        });
-        
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            // Escape key closes modal
-            if (e.key === 'Escape') {
-                closeOrderModal();
-            }
-        });
-        
-        // Initialize page
-        updateCart();
-        
-        // Email sending function
-        function sendEmail(event) {
-            event.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            // Create email content
-            const subject = encodeURIComponent('Contact depuis le site LS SERVICES');
-            const body = encodeURIComponent(
-                `Nom: ${name}\n` +
-                `Email: ${email}\n\n` +
-                `Message:\n${message}\n\n` +
-                `Envoyé depuis le site LS SERVICES`
-            );
-            
-            // Create Gmail compose URL
-            const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=ls_services2k25@outlook.fr&su=${subject}&body=${body}`;
-            
-            // Try to open Gmail compose
-            const newWindow = window.open(gmailURL, '_blank');
-            
-            if (newWindow) {
-                showNotification('Votre client email va s\'ouvrir pour envoyer le message.', 'success');
-                
-                // Reset form
-                document.getElementById('contact-form').reset();
-            } else {
-                // Fallback: copy email to clipboard and show notification
-                const emailText = `À: ls_services2k25@outlook.fr\nObjet: Contact depuis le site LS SERVICES\n\nNom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
-                
-                navigator.clipboard.writeText(emailText).then(() => {
-                    showNotification('Les informations ont été copiées dans le presse-papier. Collez-les dans votre client email.', 'success');
-                }).catch(() => {
-                    showNotification('Veuillez envoyer votre message directement à: ls_services2k25@outlook.fr', 'error');
-                });
-            }
-        }
-    </script>
-</body>
-</html>
+### Décoration Discord
+- Services de décoration personnalisée
+- Tarifs préférentiels (de 1.25€ à 4.00€)
+- Garantie complète
+- Liens valides 47h
+
+### Robux Roblox
+- **Robux** : De 1.000 à 25.000 (5.50€ - 35.00€)
+- Livraison rapide
+- Service fiable
+
+### Comptes Premium 👑
+#### TikTok Comptes
+- **TikTok 1k+ Account** - 4.00€
+- **TikTok 10k+ Account** - 15.50€
+- **TikTok 20k+ Account** - 29.00€
+
+#### Instagram Comptes  
+- **Instagram 1k+ Account** - 7.00€
+- **Instagram 5k+ Account** - 15.50€
+
+#### Services Streaming & IA
+- **ChatGPT+ Account** - 4.00€
+- **Netflix LT Account** - 3.00€
+- **Spotify Premium Account** - 2.50€
+
+## 💳 Paiements
+
+Le site intègre PayPal pour des transactions sécurisées. Tous les paiements sont protégés et les services sont livrés rapidement après confirmation.
+
+### Processus de commande
+1. Ajout des articles au panier
+2. Validation de la commande
+3. Redirection vers PayPal
+4. Contact par email pour livraison
+
+## 🔄 Mises à jour récentes
+
+- **Version actuelle** : 1.1.0
+- ✅ Services TikTok opérationnels
+- ✅ Services Discord disponibles
+- ✅ Services Robux actifs
+- 🆕 **Nouvelle section "Comptes"** avec comptes premium
+- 🆕 Comptes TikTok, Instagram, ChatGPT+, Netflix et Spotify
+- 🆕 Interface améliorée avec icônes spécifiques
+- 🆕 Système de panier optimisé
+
+## 📞 Support Client
+
+- **Email** : ls_services2k25@outlook.fr
+- **PayPal** : paypal.me/LSSERVICES2k25
+- Réponse rapide sous 24h
+- Support personnalisé
+
+## 🔧 Technologies utilisées
+
+- **Frontend** : HTML5, CSS3, JavaScript
+- **Framework CSS** : Tailwind CSS
+- **Icônes** : Font Awesome 6.4.0
+- **Paiement** : PayPal.me
+- **Responsive** : Design mobile-first
+
+## 📱 Compatibilité
+
+- ✅ Desktop (Chrome, Firefox, Safari, Edge)
+- ✅ Mobile (iOS Safari, Chrome Mobile)
+- ✅ Tablette (iPad, Android)
+- ✅ Tous les navigateurs modernes
+
+## ⚠️ Avertissement
+
+Tous nos services respectent les conditions d'utilisation des plateformes concernées. Les résultats peuvent varier selon les algorithmes des réseaux sociaux. Les comptes sont fournis "tels quels" et leur durée de vie peut varier.
+
+## 📈 Statistiques
+
+- 🎯 Plus de 50 services disponibles
+- ⚡ Livraison sous 24h-48h
+- 💯 Satisfaction client garantie
+- 🔒 Paiements 100% sécurisés
+
+## 🚀 Prochaines fonctionnalités
+
+- Système de compte utilisateur
+- Historique des commandes
+- Programme de fidélité
+- Support chat en direct
+- API pour développeurs
+
+---
+
+**Développé avec ❤️ pour LS SERVICES - Votre partenaire numérique de confiance**
