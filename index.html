@@ -61,6 +61,25 @@
             70% { box-shadow: 0 0 0 10px rgba(124, 58, 237, 0); }
             100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
         }
+
+        /* Style pour les logos manquants */
+        .logo-placeholder {
+            background: linear-gradient(45deg, #f3f4f6, #e5e7eb);
+            border: 2px dashed #d1d5db;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+
+        /* Responsive logo */
+        .logo-img {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
     </style>
 </head>
 <body class="font-sans bg-gray-50">
@@ -68,8 +87,13 @@
     <header class="gradient-bg text-white shadow-lg">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center">
-                <img src="https://media.discordapp.net/attachments/1404284668869869618/1411140967901167761/Nouveau_projet_1.png?ex=68b8d8f0&is=68b78770&hm=7748922577ce19449e87b80a5da1a4c8451b5761a0db392ec39028ad694f3b75&=&format=webp&quality=lossless&width=640&height=640" 
-                     alt="LS SERVICES Logo" class="h-12 w-12 rounded-full mr-3">
+                <img src="./Ls Service.png" 
+                     alt="LS SERVICES Logo" 
+                     class="h-12 w-12 rounded-full mr-3 logo-img"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="h-12 w-12 rounded-full mr-3 logo-placeholder hidden">
+                    <span>LOGO</span>
+                </div>
                 <h1 class="text-2xl font-bold">LS SERVICES</h1>
             </div>
             
@@ -111,8 +135,13 @@
                         <a href="javascript:void(0);" onclick="loadShopPage()" class="bg-white text-purple-700 px-6 py-3 rounded-lg font-bold hover:bg-purple-100 transition inline-block">Découvrir la boutique</a>
                     </div>
                     <div class="md:w-1/2 flex justify-center">
-                        <img src="https://media.discordapp.net/attachments/1404284668869869618/1411140967901167761/Nouveau_projet_1.png?ex=68b8d8f0&is=68b78770&hm=7748922577ce19449e87b80a5da1a4c8451b5761a0db392ec39028ad694f3b75&=&format=webp&quality=lossless&width=640&height=640" 
-                             alt="Services sociaux" class="rounded-lg shadow-xl w-64 h-64 object-cover">
+                        <img src="./Ls Service.png" 
+                             alt="Services sociaux" 
+                             class="rounded-lg shadow-xl w-64 h-64 object-cover logo-img"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="rounded-lg shadow-xl w-64 h-64 logo-placeholder hidden">
+                            <span>IMAGE<br>LS SERVICE</span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -523,8 +552,13 @@
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-6 md:mb-0">
                     <div class="flex items-center">
-                        <img src="https://media.discordapp.net/attachments/1404284668869869618/1411140967901167761/Nouveau_projet_1.png?ex=68b58d30&is=68b43bb0&hm=a2882728098199475f5e0e7e176d99c310b4716afa6ae2d98fb81368a3253a94&=&format=webp&quality=lossless&width=640&height=640" 
-                             alt="LS SERVICES Logo" class="h-10 w-10 rounded-full mr-3">
+                        <img src="./Ls Service.png" 
+                             alt="LS SERVICES Logo" 
+                             class="h-10 w-10 rounded-full mr-3 logo-img"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="h-10 w-10 rounded-full mr-3 logo-placeholder hidden">
+                            <span>LOGO</span>
+                        </div>
                         <h2 class="text-xl font-bold">LS SERVICES</h2>
                     </div>
                     <p class="mt-2 text-purple-100">Services premium pour vos réseaux sociaux</p>
@@ -767,7 +801,7 @@
                 const orderDetails = cart.map(item => `${item.name} (x${item.quantity})`).join(', ');
                 
                 // Create order info string
-                const orderInfo = `Commande LS SERVICES:\n\n${orderDetails}\n\nTotal: ${total.toFixed(2)}€\n\nMerci de nous envoyer vos détails après paiement à: ls_service2k25@outlook.fr`;
+                const orderInfo = `Commande LS SERVICES:\n\n${orderDetails}\n\nTotal: ${total.toFixed(2)}€\n\nMerci de nous envoyer vos détails après paiement à : ls_service2k25@outlook.fr`;
                 
                 // Open PayPal in new tab
                 window.open(paypalURL, '_blank');
@@ -902,7 +936,7 @@
                 navigator.clipboard.writeText(emailText).then(() => {
                     showNotification('Les informations ont été copiées dans le presse-papier. Collez-les dans votre client email.', 'success');
                 }).catch(() => {
-                    showNotification('Veuillez envoyer votre message directement à: ls_services2k25@outlook.fr', 'error');
+                    showNotification('Veuillez envoyer votre message directement à : ls_services2k25@outlook.fr', 'error');
                 });
             }
         }
